@@ -67,6 +67,7 @@ typedef enum : NSUInteger {
     self.width = [[options objectForKey:@"width"] integerValue];
     self.height = [[options objectForKey:@"height"] integerValue];
     self.quality = [[options objectForKey:@"quality"] integerValue];
+    self.maximumImagesCount = [[options objectForKey:@"maximumImagesCount"] integerValue];
 
     self.callbackId = command.callbackId;
     [self launchGMImagePicker:allow_video title:title message:message disable_popover:disable_popover];
@@ -152,6 +153,24 @@ typedef enum : NSUInteger {
 {
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"UIImagePickerController: User pressed cancel button");
+}
+
+- (BOOL)assetsPickerController:(GMImagePickerController *)picker shouldSelectAsset:(PHAsset *)asset
+{
+    NSLog(@"maximumImagesCount is %ld, current count is %ld", self.maximumImagesCount, picker.selectedAssets.count);
+    if (self.maximumImagesCount <= picker.selectedAssets.count)
+    {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)assetsPickerController:(GMImagePickerController *)picker didSelectAsset:(PHAsset *)asset
+{
+    if (self.maximumImagesCount == 1)
+    {
+        [picker finishPickingAssets:0]
+    }
 }
 
 #pragma mark - GMImagePickerControllerDelegate

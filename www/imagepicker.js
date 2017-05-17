@@ -54,7 +54,7 @@ ImagePicker.prototype.getPictures = function(success, fail, options) {
 	this.validateOutputType(options);
 
 	var params = {
-		maximumImagesCount: options.maximumImagesCount ? options.maximumImagesCount : 15,
+		maximumImagesCount: options.maximumImagesCount ? options.maximumImagesCount : 9,
 		width: options.width ? options.width : 0,
 		height: options.height ? options.height : 0,
 		quality: options.quality ? options.quality : 100,
