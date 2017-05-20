@@ -169,7 +169,7 @@ typedef enum : NSUInteger {
 {
     if (self.maximumImagesCount == 1)
     {
-        [picker finishPickingAssets:0]
+        [picker finishPickingAssets:0];
     }
 }
 
